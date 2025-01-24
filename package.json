@@ -1,6 +1,6 @@
 {
-  "name": "cordova-plugin-filepath",
-  "version": "1.6.0",
+  "name": "@dhrimz/cordova-plugin-filepath",
+  "version": "1.6.1",
   "description": "Resolve native file paths from content URLs for Cordova platforms",
   "cordova": {
     "id": "cordova-plugin-filepath",
@@ -13,6 +13,10 @@
   },
   "repository": {
     "type": "git",
+    "url": "https://github.com/DrimZ/cordova-plugin-filepath.git"
+  },
+  "originalRepository": {
+    "type": "git",
     "url": "https://github.com/hiddentao/cordova-plugin-filepath.git"
   },
   "keywords": [
@@ -21,7 +25,7 @@
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "author": "Ramesh Nair <ram@hiddentao.com>",
+  "author": "Ryan Nacpil (forked from Ramesh Nair <ram@hiddentao.com>)",
   "license": "Apache 2.0",
   "devDependencies": {
     "sync-cordova-xml": "^0.4.0"

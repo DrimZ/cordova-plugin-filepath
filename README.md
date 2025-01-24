@@ -1,3 +1,25 @@
+# Repository Notice
+
+This repository is a forked version of [hiddentao/cordova-plugin-filepath](https://github.com/hiddentao/cordova-plugin-filepath) to support the latest Android permissions, including:
+
+- `android.permission.READ_MEDIA_IMAGES`
+- `android.permission.READ_MEDIA_VIDEO`
+- `android.permission.READ_MEDIA_AUDIO`
+
+<br>
+
+## Installation
+
+```bash
+$ cordova plugin add @dhrimz/cordova-plugin-filepath
+```
+
+<br>
+
+---
+
+<br><br><br>
+
 # cordova-plugin-filepath
 
 **PLEASE NOTE: This plugin is no longer actively maintained.**

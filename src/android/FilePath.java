@@ -14,6 +14,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import androidx.annotation.RequiresApi;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -47,10 +49,24 @@ public class FilePath extends CordovaPlugin {
 
     public static final int READ_REQ_CODE = 0;
 
-    public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
+    public static final String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static final String READ_IMAGES = Manifest.permission.READ_MEDIA_IMAGES;
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static final String READ_VIDEO = Manifest.permission.READ_MEDIA_VIDEO;
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static final String READ_AUDIO = Manifest.permission.READ_MEDIA_AUDIO;
 
     protected void getReadPermission(int requestCode) {
-        PermissionHelper.requestPermission(this, requestCode, READ);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13 and above
+            String[] permissions = {READ_IMAGES, READ_VIDEO, READ_AUDIO};
+            PermissionHelper.requestPermissions(this, requestCode, permissions);
+        } else { // Android 12 and below
+            PermissionHelper.requestPermission(this, requestCode, READ_EXTERNAL_STORAGE);
+        }
     }
 
     public void initialize(CordovaInterface cordova, final CordovaWebView webView) {
@@ -71,11 +87,20 @@ public class FilePath extends CordovaPlugin {
         this.uriStr = args.getString(0);
 
         if (action.equals("resolveNativePath")) {
-            if (PermissionHelper.hasPermission(this, READ)) {
-                resolveNativePath();
-            }
-            else {
-                getReadPermission(READ_REQ_CODE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13 and above
+                if (PermissionHelper.hasPermission(this, READ_IMAGES) ||
+                    PermissionHelper.hasPermission(this, READ_VIDEO) ||
+                    PermissionHelper.hasPermission(this, READ_AUDIO)) {
+                    resolveNativePath();
+                } else {
+                    getReadPermission(READ_REQ_CODE);
+                }
+            } else { // Android 12 and below
+                if (PermissionHelper.hasPermission(this, READ_EXTERNAL_STORAGE)) {
+                    resolveNativePath();
+                } else {
+                    getReadPermission(READ_REQ_CODE);
+                }
             }
 
             return true;

@@ -1,3 +1,6 @@
+# 1.6.1
+- Added new permissions for Android 33+ (`android.permission.READ_MEDIA_IMAGES`, `android.permission.READ_MEDIA_VIDEO`, `android.permission.READ_MEDIA_AUDIO`)
+
 # 1.6.0
 
 * [#70](https://github.com/hiddentao/cordova-plugin-filepath/pull/70)
